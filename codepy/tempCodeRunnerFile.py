@@ -21,23 +21,27 @@ class LoginScreen(Screen):
         layout = BoxLayout(orientation='vertical', spacing=10, size_hint_y=None)
         layout.bind(minimum_height=layout.setter('height'))
 
+        # Tạo màu nền xám trắng cho layout
         with layout.canvas.before:
-            Color(1, 1, 1, 1) 
+            Color(1, 1, 1, 1)  # Màu trắng
             self.rect = Rectangle(size=layout.size, pos=layout.pos)
 
         form_layout = GridLayout(cols=2, spacing=10, size_hint_y=None)
-        self.label_username = Label(text="Username:", font_size=16, size_hint_x=None, width=100, color=(0, 0, 0, 1))
-        self.entry_username = TextInput(font_size=16, size_hint_x=None)
 
-        self.label_password = Label(text="Password:", font_size=16, size_hint_x=None, width=100, color=(0, 0, 0, 1))
-        self.entry_password = TextInput(password=True, font_size=16, size_hint_x=None)
+        # Nhãn "Username"
+        self.label_username = Label(text="Username:", font_size=16, size_hint_x=None, width=100, color=(0, 0, 0, 1))  # Màu chữ đen
+        self.entry_username = TextInput(font_size=16, size_hint_x=None, width=Window.width/2)
+
+        # Nhãn "Password"
+        self.label_password = Label(text="Password:", font_size=16, size_hint_x=None, width=100, color=(0, 0, 0, 1))  # Màu chữ đen
+        self.entry_password = TextInput(password=True, font_size=16, size_hint_x=None, width=Window.width/2)
 
         form_layout.add_widget(self.label_username)
         form_layout.add_widget(self.entry_username)
         form_layout.add_widget(self.label_password)
         form_layout.add_widget(self.entry_password)
 
-        button_layout = BoxLayout(orientation='horizontal', spacing=10, size_hint_y=None, size_hint_x=0.5, height=50)
+        button_layout = BoxLayout(orientation='horizontal', spacing=10, size_hint_y=None, height=50)
 
         self.button_login = Button(text="Đăng nhập", font_size=16)
         self.button_login.bind(on_press=self.login)
@@ -71,7 +75,7 @@ class LoginScreen(Screen):
             result = cursor.fetchone()
 
             if result:
-                hashed_password_from_db = result[2] 
+                hashed_password_from_db = result[2]  # Assuming index of password in the result tuple
                 if bcrypt.checkpw(password.encode('utf-8'), hashed_password_from_db.encode('utf-8')):
                     self.login_status_label.text = "Đăng nhập thành công"
                 else:
@@ -85,23 +89,14 @@ class LoginScreen(Screen):
         except mysql.connector.Error as error:
             print("Lỗi khi thực hiện truy vấn SQL:", error)
 
-    def on_parent(self, instance, value):
-        if value is None:
-            Window.unbind(on_resize=self.on_window_resize)
-        else:
-            Window.bind(on_resize=self.on_window_resize)
-            self.on_window_resize(Window, Window.width, Window.height)
-
-
-    def on_window_resize(self, instance, width, height):
-        self.entry_username.width = width / 2
-        self.entry_password.width = width / 2
 
 class LoginApp(App):
     def build(self):
         self.title = "Đăng nhập"
+
+        # Đặt màu nền của cửa sổ là màu xám trắng
         Window.clearcolor = (1, 1, 1, 1)
-        Window.size = (400, 400)
+
         sm = ScreenManager()
         sm.add_widget(LoginScreen(name='login'))
         sm.add_widget(RegisterScreen(name='register'))

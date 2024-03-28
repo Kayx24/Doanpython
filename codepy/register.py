@@ -18,13 +18,13 @@ class RegisterScreen(Screen):
         layout = GridLayout(cols=1, spacing=10, size_hint_y=None)
         layout.bind(minimum_height=layout.setter('height'))
 
-        self.label_username_reg = Label(text="Username:", font_size=16, size_hint_x=None, width=100)
+        self.label_username_reg = Label(text="Username:", font_size=16, size_hint_x=None, width=100,color=(0, 0, 0, 1))
         self.entry_username_reg = TextInput(font_size=16)
 
-        self.label_password_reg = Label(text="Password:", font_size=16, size_hint_x=None, width=100)
+        self.label_password_reg = Label(text="Password:", font_size=16, size_hint_x=None, width=100,color=(0, 0, 0, 1))
         self.entry_password_reg = TextInput(password=True, font_size=16)
 
-        self.label_email_reg = Label(text="Email:", font_size=16, size_hint_x=None, width=100)
+        self.label_email_reg = Label(text="Email:", font_size=16, size_hint_x=None, width=100,color=(0, 0, 0, 1))
         self.entry_email_reg = TextInput(font_size=16)
 
         form_layout = GridLayout(cols=2, spacing=10, size_hint_y=None)
@@ -65,6 +65,18 @@ class RegisterScreen(Screen):
             db_connection = connect_to_database()
             cursor = db_connection.cursor()
 
+            if not 6 <= len(username) <= 16 or not username.isalnum():
+                self.register_status_label.text = "Tên người dùng phải có từ 6 đến 16 ký tự và không chứa ký tự đặc biệt."
+                return
+            if not 6 <= len(password):
+                self.register_status_label.text = "Mật khẩu phải có ít nhất 6 ký tự."
+                return
+
+            if not re.match(r"[^@]+@[^@]+\.[^@]+", email) or not email.endswith('@gmail.com'):
+                self.register_status_label.text = "Email không hợp lệ. Email phải có định dạng example@gmail.com."
+                return
+
+            # Kiểm tra xem tên người dùng đã tồn tại chưa
             check_query = "SELECT * FROM accounts WHERE username = %s"
             cursor.execute(check_query, (username,))
             existing_user = cursor.fetchone()
