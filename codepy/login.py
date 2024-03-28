@@ -1,79 +1,97 @@
-import tkinter as tk
+from kivy.app import App
+from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.core.window import Window
+from kivy.uix.label import Label
+from kivy.uix.textinput import TextInput
+from kivy.uix.button import Button
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.boxlayout import BoxLayout
+from register import RegisterScreen
 from database import connect_to_database
+import mysql.connector
+import bcrypt
 
-def login():
-    username = entry_username.get()
-    password = entry_password.get()
-    
-    try:
+class LoginScreen(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.create_login_layout()
 
-        db_connection = connect_to_database()
-        
-        cursor = db_connection.cursor()
-        
-        sql_query = "SELECT * FROM accounts WHERE username = %s AND password = %s"
-        cursor.execute(sql_query, (username, password))
-        
-        result = cursor.fetchone()
-        
-        if result:
-            login_status_label.config(text="Đăng nhập thành công")
-        else:
-            login_status_label.config(text="Đăng nhập thất bại")
-        cursor.close()
-        db_connection.close()
-        
-    except mysql.connector.Error as error:
-        print("Lỗi khi thực hiện truy vấn SQL:", error)
+    def create_login_layout(self):
+        layout = GridLayout(cols=1, spacing=10, size_hint_y=None)
+        layout.bind(minimum_height=layout.setter('height'))
 
-def register():
-    
-    username = entry_username.get()
-    password = entry_password.get()
-    email = entry_email.get()
-    
-    try:
-        db_connection = connect_to_database()
-        
-        cursor = db_connection.cursor()
-        
-        create_table_accounts(cursor)
-        
-        sql_query = "INSERT INTO accounts (username, password, email) VALUES (%s, %s, %s)"
-        cursor.execute(sql_query, (username, password, email))
-        
-        db_connection.commit()
-        
-        cursor.close()
-        db_connection.close()
-        
-        print("Đăng ký tài khoản thành công và lưu vào cơ sở dữ liệu")
-        
-    except mysql.connector.Error as error:
-        print("Lỗi khi thực hiện truy vấn SQL:", error)
+        form_layout = GridLayout(cols=2, spacing=10, size_hint_y=None)
 
-root = tk.Tk()
-root.title("Đăng nhập")
-root.geometry("500x500")
+        self.label_username = Label(text="Username:", font_size=16, size_hint_x=None, width=100)
+        self.entry_username = TextInput(font_size=16)
+
+        self.label_password = Label(text="Password:", font_size=16, size_hint_x=None, width=100)
+        self.entry_password = TextInput(password=True, font_size=16)
+
+        form_layout.add_widget(self.label_username)
+        form_layout.add_widget(self.entry_username)
+        form_layout.add_widget(self.label_password)
+        form_layout.add_widget(self.entry_password)
+
+        button_layout = BoxLayout(orientation='horizontal', spacing=10, size_hint_y=None, height=50)
+
+        self.button_login = Button(text="Đăng nhập", font_size=16)
+        self.button_login.bind(on_press=self.login)
+
+        self.button_register = Button(text="Đăng ký", font_size=16)
+        self.button_register.bind(on_press=self.switch_to_register_layout)
+
+        button_layout.add_widget(self.button_login)
+        button_layout.add_widget(self.button_register)
+
+        self.login_status_label = Label(text="", font_size=16, size_hint_y=None, height=30)
+
+        layout.add_widget(form_layout)
+        layout.add_widget(button_layout)
+        layout.add_widget(self.login_status_label)
+
+        self.add_widget(layout)
+
+    def switch_to_register_layout(self, instance):
+        self.manager.current = 'register'
+
+    def login(self, instance):
+        username = self.entry_username.text
+        password = self.entry_password.text
+
+        try:
+            db_connection = connect_to_database()
+            cursor = db_connection.cursor()
+            sql_query = "SELECT * FROM accounts WHERE username = %s"
+            cursor.execute(sql_query, (username,))
+            result = cursor.fetchone()
+
+            if result:
+                hashed_password_from_db = result[2]  # Assuming index of password in the result tuple
+                if bcrypt.checkpw(password.encode('utf-8'), hashed_password_from_db.encode('utf-8')):
+                    self.login_status_label.text = "Đăng nhập thành công"
+                else:
+                    self.login_status_label.text = "Đăng nhập thất bại"
+            else:
+                self.login_status_label.text = "Đăng nhập thất bại"
+
+            cursor.close()
+            db_connection.close()
+
+        except mysql.connector.Error as error:
+            print("Lỗi khi thực hiện truy vấn SQL:", error)
 
 
-label_username = tk.Label(root, text="Username:", font=("Arial", 14))
-label_username.pack()
-entry_username = tk.Entry(root, font=("Arial", 12))
-entry_username.pack()
+class LoginApp(App):
+    def build(self):
+        self.title = "Đăng nhập"
+        Window.size = (500, 300)
 
-label_password = tk.Label(root, text="Password:", font=("Arial", 14))
-label_password.pack()
-entry_password = tk.Entry(root, show="*", font=("Arial", 12))
-entry_password.pack()
+        sm = ScreenManager()
+        sm.add_widget(LoginScreen(name='login'))
+        sm.add_widget(RegisterScreen(name='register'))
 
-button_login = tk.Button(root, text="Đăng nhập", command=login, font=("Arial", 14))
-button_login.pack()
+        return sm
 
-button_register = tk.Button(root, text="Đăng ký", command=register, font=("Arial", 14))
-button_register.pack()
-
-login_status_label = tk.Label(root, text="", font=("Arial", 14))
-login_status_label.pack()
-
-root.mainloop()
+if __name__ == "__main__":
+    LoginApp().run()

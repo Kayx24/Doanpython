@@ -2,11 +2,10 @@ import mysql.connector
 
 def connect_to_database():
     try:
-        # Kết nối đến cơ sở dữ liệu MySQL
         db_connection = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="",  # Thay bằng mật khẩu của bạn nếu có
+            password="",
             database="pythonbienbao"
         )
         
@@ -18,7 +17,7 @@ def connect_to_database():
         return None
 
 def create_table_accounts(cursor):
-    # Thực thi truy vấn SQL để tạo bảng accounts nếu chưa tồn tại
+    
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS accounts (
             id INT AUTO_INCREMENT PRIMARY KEY,
