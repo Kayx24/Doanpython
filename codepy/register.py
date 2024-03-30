@@ -1,12 +1,13 @@
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
-from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import Screen
 from database import connect_to_database
 import mysql.connector
 import bcrypt
+import re
+from kivy.uix.image import Image
 
 
 class RegisterScreen(Screen):
@@ -15,8 +16,10 @@ class RegisterScreen(Screen):
         self.create_register_layout()
 
     def create_register_layout(self):
-        layout = GridLayout(cols=1, spacing=10, size_hint_y=None)
-        layout.bind(minimum_height=layout.setter('height'))
+        layout = BoxLayout(orientation='vertical', spacing=10)
+        
+        img = Image(source="bienbao.png", size_hint=(None, None), size=(150,150),pos_hint={'center_x':0.5, 'center_y':0.5 })
+        layout.add_widget(img)
 
         self.label_username_reg = Label(text="Username:", font_size=16, size_hint_x=None, width=100,color=(0, 0, 0, 1))
         self.entry_username_reg = TextInput(font_size=16)
@@ -27,7 +30,7 @@ class RegisterScreen(Screen):
         self.label_email_reg = Label(text="Email:", font_size=16, size_hint_x=None, width=100,color=(0, 0, 0, 1))
         self.entry_email_reg = TextInput(font_size=16)
 
-        form_layout = GridLayout(cols=2, spacing=10, size_hint_y=None)
+        form_layout = BoxLayout(orientation='vertical', spacing=10)
         form_layout.add_widget(self.label_username_reg)
         form_layout.add_widget(self.entry_username_reg)
         form_layout.add_widget(self.label_password_reg)
@@ -36,10 +39,10 @@ class RegisterScreen(Screen):
         form_layout.add_widget(self.entry_email_reg)
 
         button_layout = BoxLayout(orientation='horizontal', spacing=10, size_hint_y=None, height=50)
-        self.button_register_reg = Button(text="Đăng ký", font_size=16)
+        self.button_register_reg = Button(text="Đăng ký", font_size=16,background_color=(0,1,2,1))
         self.button_register_reg.bind(on_press=self.register)
 
-        self.button_back = Button(text="Quay lại", font_size=16)
+        self.button_back = Button(text="Quay lại", font_size=16,background_color=(0,1,2,1))
         self.button_back.bind(on_press=self.switch_to_login_layout)
 
         button_layout.add_widget(self.button_register_reg)
@@ -76,7 +79,7 @@ class RegisterScreen(Screen):
                 self.register_status_label.text = "Email không hợp lệ. Email phải có định dạng example@gmail.com."
                 return
 
-            # Kiểm tra xem tên người dùng đã tồn tại chưa
+            # Kiểm tra tên người dùng  
             check_query = "SELECT * FROM accounts WHERE username = %s"
             cursor.execute(check_query, (username,))
             existing_user = cursor.fetchone()

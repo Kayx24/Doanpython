@@ -11,6 +11,7 @@ from register import RegisterScreen
 from database import connect_to_database
 import mysql.connector
 import bcrypt
+from kivy.uix.image import Image
 
 class LoginScreen(Screen):
     def __init__(self, **kwargs):
@@ -20,6 +21,9 @@ class LoginScreen(Screen):
     def create_login_layout(self):
         layout = BoxLayout(orientation='vertical', spacing=10, size_hint_y=None)
         layout.bind(minimum_height=layout.setter('height'))
+        
+        img = Image(source="bienbao.png", size_hint=(None, None), size=(150,150),pos_hint={'center_x': 0.5, 'top':2 })
+        layout.add_widget(img)
 
         with layout.canvas.before:
             Color(1, 1, 1, 1) 
@@ -39,10 +43,10 @@ class LoginScreen(Screen):
 
         button_layout = BoxLayout(orientation='horizontal', spacing=10, size_hint_y=None, size_hint_x=0.5, height=50)
 
-        self.button_login = Button(text="Đăng nhập", font_size=16)
+        self.button_login = Button(text="Đăng nhập", font_size=16,background_color=(0,1,2,1))
         self.button_login.bind(on_press=self.login)
 
-        self.button_register = Button(text="Đăng ký", font_size=16)
+        self.button_register = Button(text="Đăng ký", font_size=16,background_color=(0,1,2,1))
         self.button_register.bind(on_press=self.switch_to_register_layout)
 
         button_layout.add_widget(self.button_login)
