@@ -8,9 +8,9 @@ Builder.load_file('register.kv')
 
 class RegisterScreen(Screen):
     def register(self):
-        username = self.entry_username_reg.text
-        password = self.entry_password_reg.text
-        email = self.entry_email_reg.text
+        username = self.ids.entry_username_reg.text
+        password = self.ids.entry_password_reg.text
+        email = self.ids.entry_email_reg.text
 
         try:
             db_connection = connect_to_database()
@@ -21,13 +21,13 @@ class RegisterScreen(Screen):
             existing_user = cursor.fetchone()
 
             if existing_user:
-                self.register_status_label.text = "Tên người dùng đã tồn tại. Vui lòng chọn tên khác."
+                self.ids.register_status_label.text = "Tên người dùng đã tồn tại. Vui lòng chọn tên khác."
             else:
                 hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
                 insert_query = "INSERT INTO accounts (username, password, email) VALUES (%s, %s, %s)"
                 cursor.execute(insert_query, (username, hashed_password.decode('utf-8'), email))
                 db_connection.commit()
-                self.register_status_label.text = "Đăng ký tài khoản thành công"
+                self.ids.register_status_label.text = "Đăng ký tài khoản thành công"
 
             cursor.close()
             db_connection.close()

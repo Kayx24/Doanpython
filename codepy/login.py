@@ -5,7 +5,7 @@ from database import connect_to_database
 import mysql.connector
 import bcrypt
 from register import *
-
+from main import MainWidget
 
 
 class LoginScreen(Screen):
@@ -23,7 +23,7 @@ class LoginScreen(Screen):
             if result:
                 hashed_password_from_db = result[2] 
                 if bcrypt.checkpw(password.encode('utf-8'), hashed_password_from_db.encode('utf-8')):
-                    self.login_status_label.text = "Đăng nhập thành công"
+                    self.ids.login_status_label.text = "Đăng nhập thành công"
                     self.manager.current = 'main'
                 else:
                     self.ids.login_status_label.text = "Đăng nhập thất bại"

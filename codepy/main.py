@@ -76,5 +76,3 @@ class TheLabApp(App):
         screen_manager.add_widget(QuetScreen(name='Quet'))
         return screen_manager
 
-
-TheLabApp().run()
