@@ -1,0 +1,62 @@
+<LoginScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 10
+        padding: 20
+
+        Image:
+            source: "bienbao.png"
+            size_hint: (None, None)
+            size: (150, 150)
+            pos_hint: {'center_x':0.5, 'center_y':0.7 }
+
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 20
+
+            GridLayout:
+                cols: 2
+                spacing: 10
+                size_hint_y: None
+                height: 100
+
+                Label:
+                    text: "Username:"
+                    font_size: 16
+                    color: (0, 0, 0, 1)
+                TextInput:
+                    id: entry_username
+                    font_size: 15
+
+                Label:
+                    text: "Password:"
+                    font_size: 16
+                    color: (0, 0, 0, 1)
+                TextInput:
+                    id: entry_password
+                    password: True
+                    font_size: 15
+
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: 10
+                size_hint_y: None
+                height: 50
+
+                Button:
+                    text: "Đăng nhập"
+                    font_size: 16
+                    background_color: (0, 0.5, 1, 1)
+                    on_press: root.login()
+
+                Button:
+                    text: "Đăng ký"
+                    font_size: 16
+                    background_color: (0, 0.5, 1, 1)
+                    on_press: app.root.current = 'register'
+
+            Label:
+                id: login_status_label
+                text: ""
+                font_size: 16
+                height: 30

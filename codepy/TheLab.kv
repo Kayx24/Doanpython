@@ -1,0 +1,147 @@
+MainWidget
+<MainWidget>:
+    TextInput:
+        size: self.parent.width * 0.65, self.parent.height * 0.05
+        pos: self.parent.width * 0.1, self.parent.height * 0.78
+    Button:
+        text:"Tìm"
+        size: self.parent.width * 0.15, self.parent.height * 0.05
+        pos: self.parent.width * 0.75, self.parent.height * 0.78
+        on_press:root.btn_click_Tim()
+    Button:
+        text: "TT"
+        size_hint: None, None
+        size: self.parent.width * 0.15, self.parent.height * 0.07
+        pos: self.parent.width * 0.02, self.parent.height * 0.90
+        color: 0, 0, 1, 1
+        on_press: root.btn_click_TTCaNhan()
+    Button:
+        text: "Menu"
+        size_hint: None, None
+        size: self.parent.width * 0.15, self.parent.height * 0.07
+        pos: self.parent.width * 0.83, self.parent.height * 0.90
+        color: 0, 0, 1, 1
+        on_press: root.btn_click_Menu()
+    Button:
+        text: "Quét"
+        size_hint: None, None
+        size: self.parent.width * 0.15, self.parent.height * 0.07
+        pos: self.parent.width * 0.43, self.parent.height * 0.05
+        color: 1, 0, 0, 1
+        on_press: root.btn_click_Quet()
+    GridLayout:
+        spacing:"20dp","20dp"
+        pos:self.parent.width*0.05, self.parent.height*0.2
+        size:self.parent.width*0.9, self.parent.height*0.5
+        rows:2
+        cols:2
+        Button:
+            text:"UpLoad Hình ảnh"
+            on_press: root.btn_click_UploadHinh()
+        Button:
+            text:"Thông Tin Biển Báo"
+            on_press: root.btn_click_TTBienBao()
+        Button:
+            text:"Lịch Sử Tìm Kiếm"
+            on_press: root.btn_click_Tim()
+        Button:
+            text:"Thông Tin Ứng Dụng"
+            on_press: root.btn_click_TTApp()
+
+<TTAppScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Thông tin ứng dụng'
+        Button:
+            text: 'Quay lại'
+            on_press: root.manager.current = 'main'
+
+<TTBienBaoScreen>:
+    Label:
+        text:"THÔNG TIN BIỂN BÁO"
+        size_hint: 0.5, 0.1
+        pos_hint: {"x":0.25,"y":0.8}
+        font_size:self.height*0.3
+
+    Button:
+        text: "TT"
+        size_hint: 0.15, 0.07
+        pos_hint: {"x": 0.02, "y": 0.90}
+        color: 0, 0, 1, 1
+        on_press: root.btn_click_TTCaNhan()
+    Button:
+        text: "Menu"
+        size_hint: 0.15, 0.07
+        pos_hint: {"x": 0.83, "y": 0.90}
+        color: 0, 0, 1, 1
+        on_press: root.btn_click_Menu()
+    Button:
+        text: "Quét"
+        size_hint: 0.15, 0.07
+        pos_hint: {"x": 0.52, "y": 0.05}
+        color: 1, 0, 0, 1
+        on_press: root.btn_click_Quet()
+    Button:
+        text: "Home"
+        size_hint: 0.15, 0.07
+        pos_hint: {"x": 0.35, "y": 0.05}
+        color: 1, 0, 0, 1
+        on_press: root.manager.current = 'main'
+    GridLayout:
+        spacing:"20dp","20dp"
+        pos_hint: {"x": 0.05, "y": 0.35}
+        size_hint: 0.9, 0.4
+        rows: 2
+        cols: 2
+        Button:
+            text: "Biển báo cấm"
+        Button:
+            text: "Biển báo nguy hiểm"
+        Button:
+            text: "Biển báo hiệu lệnh"
+        Button:
+            text: "Biển báo phụ"
+    Button:
+        text: "Biển báo chỉ dẫn"
+        size_hint: 0.9, 0.1
+        pos_hint: {"x": 0.05, "y": 0.22}
+
+<QuetScreen>:
+    Label:
+        text:"THÔNG TIN BIỂN BÁO"
+        size_hint: 0.5, 0.1
+        pos_hint: {"x":0.25,"y":0.8}
+        font_size:self.height*0.3
+
+    
+    Button:
+        text: "TT"
+        size_hint: 0.15, 0.07
+        pos_hint: {"x": 0.02, "y": 0.90}
+        color: 0, 0, 1, 1
+        on_press: root.btn_click_TTCaNhan()
+    Button:
+        text: "Menu"
+        size_hint: 0.15, 0.07
+        pos_hint: {"x": 0.83, "y": 0.90}
+        color: 0, 0, 1, 1
+        on_press: root.btn_click_Menu()
+    GridLayout:
+        cols:3
+        rows:1
+        pos_hint: {"x": 0.25, "y": 0.07}
+        size_hint: 0.5, 0.07
+        spacing:"10dp","10dp"
+        Button:
+            text: "Chụp"
+            color: 1, 0, 0, 1
+            on_press:root.capture_image()
+        Button:
+            text: "Đồng Ý"
+            color: 1, 0, 0, 1
+        Button:
+            text: "Home"
+            color: 1, 0, 0, 1
+            on_press: root.manager.current = 'main'
+   

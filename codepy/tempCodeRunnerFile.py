@@ -1,0 +1,1 @@
+        sm.add_widget(RegisterScreen(name='reg
