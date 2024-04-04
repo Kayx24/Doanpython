@@ -1,11 +1,18 @@
 <RegisterScreen>:
+    canvas.before:
+        Color:
+            rgba: 0, 0.7, 0.9, 1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
     BoxLayout:
         orientation: 'vertical'
         spacing: 10
         padding: 20
 
         Image:
-            source: "bienbao.png"
+            source: "asd.png"
             size_hint: (None, None)
             size: (150, 150)
             pos_hint: {'center_x':0.5, 'center_y':0.7 }

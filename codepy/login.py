@@ -5,7 +5,10 @@ from database import connect_to_database
 import mysql.connector
 import bcrypt
 from register import *
-from main import MainWidget
+from main import TTBienBaoScreen
+from kivy.lang import Builder
+
+Builder.load_file('TheLab.kv')
 
 
 class LoginScreen(Screen):
@@ -23,8 +26,8 @@ class LoginScreen(Screen):
             if result:
                 hashed_password_from_db = result[2] 
                 if bcrypt.checkpw(password.encode('utf-8'), hashed_password_from_db.encode('utf-8')):
-                    self.ids.login_status_label.text = "Đăng nhập thành công"
-                    self.manager.current = 'main'
+                    print("Đăng nhập thành công")
+                    self.manager.current = 'TTBienBao'
                 else:
                     self.ids.login_status_label.text = "Đăng nhập thất bại"
             else:
@@ -59,6 +62,7 @@ class LoginApp(App):
         sm = ScreenManager()
         sm.add_widget(LoginScreen(name='login'))
         sm.add_widget(RegisterScreen(name='register'))
+        sm.add_widget(TTBienBaoScreen(name='TTBienBao'))
         return sm
 
 if __name__ == "__main__":
