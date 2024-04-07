@@ -55,7 +55,7 @@ classes = { 1:'Speed limit (20km/h)',
                  
 #initialise GUI
 top=tk.Tk()
-top.geometry('800x600')
+top.geometry('500x500')
 top.title('Nhận dạng biển báo giao thông ')
 top.configure(background='#ffffff')
 

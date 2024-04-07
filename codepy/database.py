@@ -5,7 +5,7 @@ def connect_to_database():
         db_connection = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="",  # Thay bằng mật khẩu cơ sở dữ liệu của bạn
+            password="",
             database="pythonbienbao"
         )
 
