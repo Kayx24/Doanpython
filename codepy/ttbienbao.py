@@ -3,64 +3,76 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.label import Label
 from kivy.uix.image import Image
-from kivy.graphics import Color, Rectangle
+from kivy.graphics import Color, Line
 from kivy.core.window import Window
 import os
 
-classes = {1:'Speed limit (20km/h)',
-           2:'Speed limit (30km/h)',
-           3:'Speed limit (50km/h)',
-           4:'Speed limit (60km/h)', 
-           5:'Speed limit (70km/h)',
-           6:'Speed limit (80km/h)',
-           7:'End of speed limit (80km/h)', 
-           8:'Speed limit (100km/h)',
-           9:'Speed limit (120km/h)',
-           10:'No passing',
-           11:'No passing veh over 3.5 tons',
-           12:'Right-of-way at intersection',
-           13:'Priority road',
-           14:'Yield',
-           15:'Stop',
-           16:'No vehicles', 
-           17:'Veh > 3.5 tons prohibited',
-           18:'No entry',
-           19:'General caution',
-           20:'Dangerous curve left', 
-           21:'Dangerous curve right',
-           22:'Double curve',
-           23:'Bumpy road',
-           24:'Slippery road', 
-           25:'Road narrows on the right',
-           26:'Road work',
-           27:'Traffic signals',
-           28:'Pedestrians', 
-           29:'Children crossing',
-           30:'Bicycles crossing',
-           31:'Beware of ice/snow',
-           32:'Wild animals crossing', 
-           33:'End speed + passing limits',
-           34:'Turn right ahead',
-           35:'Turn left ahead',
-           36:'Ahead only', 
-           37:'Go straight or right',
-           38:'Go straight or left',
-           39:'Keep right',
-           40:'Keep left', 
-           41:'Roundabout mandatory',
-           42:'End of no passing',
-           43:'End no passing veh > 3.5 tons' }
+classes = {1:'Giới hạn tốc độ (20 km/giờ)',
+           2:'Giới hạn tốc độ (30 km/giờ)',
+           3:'Giới hạn tốc độ (50 km/giờ)',
+           4:'Giới hạn tốc độ (60 km/giờ)', 
+           5:'Giới hạn tốc độ (70 km/giờ)',
+           6:'Giới hạn tốc độ (80 km/giờ)',
+           7:'Hết tốc độ giới hạn (80km/h)', 
+           8:'Giới hạn tốc độ (100km/h)',
+           9:'Giới hạn tốc độ (120km/h)',
+           10:'Không được vượt qua',
+           11:'Cấm vượt xe quá 3,5 tấn',
+           12:'Quyền ưu tiên tại ngã tư',
+           13:'Đường ưu tiên',
+           14:'Năng suất',
+           15:'Dừng lại',
+           16:'Cấm xe cộ', 
+           17:'Cấm xe cộ > 3,5 tấn',
+           18:'Cấm vào',
+           19:'Thận trọng chung',
+           20:'Bên trái khúc cua nguy hiểm', 
+           21:'Đường cong nguy hiểm bên phải',
+           22:'Đường cong đôi',
+           23:'Con đường gập ghềnh',
+           24:'Đường trơn', 
+           25:'Đường bị thu hẹp bên phải',
+           26:'Làm đường',
+           27:'Tín hiệu giao thông',
+           28:'Người đi bộ', 
+           29:'Trẻ em băng qua đường',
+           30:'Băng qua đường bằng xe đạt',
+           31:'Coi chừng băng/tuyết',
+           32:'Động vật hoang dã băng qua', 
+           33:'Tốc độ cuối + giới hạn vượt',
+           34:'Rẽ phải về phía trước',
+           35:'Rẽ trái phía trước',
+           36:'Chỉ ở phía trước', 
+           37:'Đi thẳng hoặc sang phải',
+           38:'Đi thẳng hoặc sang trái',
+           39:'Giữ bên phải',
+           40:'Tiếp tục rời đi',    
+           41:'Bùng binh bắt buộc',
+           42:'Kết thúc không vượt qua',
+           43:'cấm vượt xe > 3,5 tấn' }
 
 image_dir = "D:/HOCTAP/Python/Doanpython/Meta"
+
+class BorderGridLayout(GridLayout):
+    def __init__(self, **kwargs):
+        super(BorderGridLayout, self).__init__(**kwargs)
+        self.cols = 2
+        self.spacing = 10
+        self.size_hint_y = None
+        self.bind(minimum_height=self.setter('height'))
+        
+    def draw_border(self):
+        with self.canvas.after:
+            Color(1, 0, 0, 1)  # Màu viền đỏ
+            Line(rectangle=(self.x, self.y, self.width, self.height), width=2)
 
 class TTbienbao(App):
     def build(self):
         root = ScrollView()
-
-        grid_layout = GridLayout(cols=2, spacing=10, size_hint_y=None)
-        grid_layout.bind(minimum_height=grid_layout.setter('height'))
+        grid_layout = BorderGridLayout()
 
         Window.clearcolor = (1, 1, 1, 1)
+        Window.size = (380, 650)
 
         for i in range(1, len(classes) + 1):
             image_path = os.path.join(image_dir, f"{i-1}.png")
@@ -70,6 +82,8 @@ class TTbienbao(App):
             
             grid_layout.add_widget(image)
             grid_layout.add_widget(label)
+        
+        grid_layout.draw_border() 
 
         root.add_widget(grid_layout)
 

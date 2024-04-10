@@ -1,147 +1,591 @@
-MainWidget
+LoginScreen
 <MainWidget>:
-    TextInput:
-        size: self.parent.width * 0.65, self.parent.height * 0.05
-        pos: self.parent.width * 0.1, self.parent.height * 0.78
-    Button:
-        text:"Tìm"
-        size: self.parent.width * 0.15, self.parent.height * 0.05
-        pos: self.parent.width * 0.75, self.parent.height * 0.78
-        on_press:root.btn_click_Tim()
-    Button:
-        text: "TT"
-        size_hint: None, None
-        size: self.parent.width * 0.15, self.parent.height * 0.07
-        pos: self.parent.width * 0.02, self.parent.height * 0.90
-        color: 0, 0, 1, 1
-        on_press: root.btn_click_TTCaNhan()
-    Button:
-        text: "Menu"
-        size_hint: None, None
-        size: self.parent.width * 0.15, self.parent.height * 0.07
-        pos: self.parent.width * 0.83, self.parent.height * 0.90
-        color: 0, 0, 1, 1
-        on_press: root.btn_click_Menu()
-    Button:
-        text: "Quét"
-        size_hint: None, None
-        size: self.parent.width * 0.15, self.parent.height * 0.07
-        pos: self.parent.width * 0.43, self.parent.height * 0.05
-        color: 1, 0, 0, 1
-        on_press: root.btn_click_Quet()
-    GridLayout:
-        spacing:"20dp","20dp"
-        pos:self.parent.width*0.05, self.parent.height*0.2
-        size:self.parent.width*0.9, self.parent.height*0.5
-        rows:2
-        cols:2
-        Button:
-            text:"UpLoad Hình ảnh"
-            on_press: root.btn_click_UploadHinh()
-        Button:
-            text:"Thông Tin Biển Báo"
-            on_press: root.btn_click_TTBienBao()
-        Button:
-            text:"Lịch Sử Tìm Kiếm"
-            on_press: root.btn_click_Tim()
-        Button:
-            text:"Thông Tin Ứng Dụng"
-            on_press: root.btn_click_TTApp()
+    MDNavigationLayout:
+        ScreenManager:
+            Screen:
+                MDTopAppBar:
+                    pos_hint: {"top": 1}
+                    md_bg_color: "#e7e4c0"
+                    specific_text_color: "#000000"
+                    elevation: 5
+                    left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+                    right_action_items: [["magnify", lambda x: None]]
+                Label:
+                    text: "Phần Mềm Nhận Diện Biển Báo Giao Thông"
+                    size_hint: 0.6, 0.5
+                    pos_hint: {'x': 0.20, 'y': 0.57}
+                    color: 1, 0, 0, 1  # Màu chữ: Đỏ (Red)
+                    font_size: "19sp"  # Kích thước phông chữ: 20sp
+                Button:
+                    text: "Quét"
+                    size_hint: None, None
+                    size: self.parent.width * 0.15, self.parent.height * 0.07
+                    pos: self.parent.width * 0.43, self.parent.height * 0.05
+                    color: 1, 0, 0, 1
+                    on_press: root.btn_click_Quet()
+                
+                GridLayout:
+                    background_color:1, 0, 0, 1
+                    pos_hint:{'x':0.05,'y':0.2}
+                    size_hint:0.9,0.5
+                    spacing:"20dp","20dp"
+            
+                    rows:2
+                    cols:2
+                    Button:
+                        text:"UpLoad Hình ảnh"
+                        on_press: root.btn_click_UploadHinh()
+                    Button:
+                        text:"Thông Tin Biển Báo"
+                        on_press: root.btn_click_TTBienBao()
+                    Button:
+                        text:"Lịch Sử Tìm Kiếm"
+                        on_press: root.btn_click_Tim()
+                    Button:
+                        text:"Thông Tin Ứng Dụng"
+                        on_press: root.btn_click_TTApp()
+        MDNavigationDrawer:
+            id: nav_drawer
+            radius: [0, 16, 0, 16]
+            MDNavigationDrawerMenu:
+                auto_dismiss: True
+                MDNavigationDrawerHeader:
+                    source: "Images/userIcon.png"
+                    title: "Username"
+                    text: "User information"
+                    font_size: "15sp"
+                    spacing: "10dp"
+                    padding: [12, 0, 0, 50]
 
+                MDNavigationDrawerLabel:
+                    text: "User"
+
+                MDNavigationDrawerItem:
+                    icon: "star"
+                    right_text: ""
+                    text_right_color: [0.29, 0.28, 0.22, 1]
+                    text: "Purchase V.I.P"
+
+                MDNavigationDrawerItem:
+                    icon: "Images/shareIcon.png"
+                    right_text: ""
+                    text_right_color: [0.29, 0.28, 0.22, 1]
+                    text: "Share"
+                    spacing: "10dp"
+                    padding: [10, 0, 0, 30]
+
+                MDNavigationDrawerItem:
+                    text: "Log out"
+                    align: "center"
+    
+<TTBienBaoScreen>:
+    MDNavigationLayout:
+        ScreenManager:
+            Screen:
+                MDTopAppBar:
+                    pos_hint: {"top": 1}
+                    md_bg_color: "#e7e4c0"
+                    specific_text_color: "#000000"
+                    elevation: 5
+                    left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+                    right_action_items: [["magnify", lambda x: None]]
+                Label:
+                    text:"THÔNG TIN BIỂN BÁO"
+                    size_hint: 0.6, 0.5
+                    pos_hint: {'x': 0.20, 'y': 0.57}
+                    color: 1, 0, 0, 1  # Màu chữ: Đỏ (Red)
+                    font_size: "19sp"  # Kích thước phông chữ: 20sp
+                Button:
+                    text: "Quét"
+                    size_hint: 0.15, 0.07
+                    pos_hint: {"x": 0.52, "y": 0.04}
+                    on_press: root.btn_click_Quet()
+                    color: 1, 0, 0, 1
+                MDFloatingActionButton:
+                    icon: "Images/homeIcon.png"
+                    icon_size: "40sp"
+                    pos_hint: {"x": 0.35, "y": 0.04}
+                    on_press: root.manager.current = 'main'
+                GridLayout:
+                    spacing:"20dp","20dp"
+                    pos_hint: {"x": 0.05, "y": 0.35}
+                    size_hint: 0.9, 0.4
+                    rows: 2
+                    cols: 2
+                    Button:
+                        text: "Biển báo cấm"
+                    Button:
+                        text: "Biển báo nguy hiểm"
+                    Button:
+                        text: "Biển báo hiệu lệnh"
+                    Button:
+                        text: "Biển báo phụ"
+                Button:
+                    text: "Biển báo chỉ dẫn"
+                    size_hint: 0.5, 0.18
+                    pos_hint: {"x": 0.25, "y": 0.15}
+        MDNavigationDrawer:
+            id: nav_drawer
+            radius: [0, 16, 0, 16]
+            MDNavigationDrawerMenu:
+                auto_dismiss: True
+                MDNavigationDrawerHeader:
+                    source: "Images/userIcon.png"
+                    title: "Username"
+                    text: "User information"
+                    font_size: "15sp"
+                    spacing: "10dp"
+                    padding: [12, 0, 0, 50]
+            
+
+                MDNavigationDrawerLabel:
+                    text: "User"
+
+                MDNavigationDrawerItem:
+                    icon: "star"
+                    right_text: ""
+                    text_right_color: [0.29, 0.28, 0.22, 1]
+                    text: "Purchase V.I.P"
+
+                MDNavigationDrawerItem:
+                    icon: "Images/shareIcon.png"
+                    right_text: ""
+                    text_right_color: [0.29, 0.28, 0.22, 1]
+                    text: "Share"
+                    spacing: "10dp"
+                    padding: [10, 0, 0, 30]
+
+                MDNavigationDrawerItem:
+                    text: "Log out"
+                    align: "center"
+    
+<QuetScreen>:
+    MDNavigationLayout:
+        ScreenManager:
+            Screen:
+                MDTopAppBar:
+                    pos_hint: {"top": 1}
+                    md_bg_color: "#e7e4c0"
+                    specific_text_color: "#000000"
+                    elevation: 5
+                    left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+                    right_action_items: [["magnify", lambda x: None]]
+                Label:
+                    text:"Quét"
+                    size_hint: 0.5, 0.1
+                    pos_hint: {"x":0.25,"y":0.8}
+                    font_size:self.height*0.3
+                    
+                Button:
+                    pos_hint: {"x": 0.6, "y": 0.07}
+                    size_hint: 0.15, 0.07
+                    text: "Đồng Ý"
+                    color: 1, 0, 0, 1
+                MDFloatingActionButton:
+                    icon: "Images/homeIcon.png"
+                    icon_size: "40sp"
+                    pos_hint: {"x": 0.43, "y": 0.07}
+                    on_press: root.manager.current = 'main'
+                Button:
+                    pos_hint: {"x": 0.25, "y": 0.07}
+                    size_hint: 0.15, 0.07
+                    text: "Chụp"
+                    color: 1, 0, 0, 1
+                    on_press:root.capture_image()
+
+        MDNavigationDrawer:
+            id: nav_drawer
+            radius: [0, 16, 0, 16]
+            MDNavigationDrawerMenu:
+                auto_dismiss: True
+                MDNavigationDrawerHeader:
+                    source: "Images/userIcon.png"
+                    title: "Username"
+                    text: "User information"
+                    font_size: "15sp"
+                    spacing: "10dp"
+                    padding: [12, 0, 0, 50]
+            
+
+                MDNavigationDrawerLabel:
+                    text: "User"
+
+                MDNavigationDrawerItem:
+                    icon: "star"
+                    right_text: ""
+                    text_right_color: [0.29, 0.28, 0.22, 1]
+                    text: "Purchase V.I.P"
+
+                MDNavigationDrawerItem:
+                    icon: "Images/shareIcon.png"
+                    right_text: ""
+                    text_right_color: [0.29, 0.28, 0.22, 1]
+                    text: "Share"
+                    spacing: "10dp"
+                    padding: [10, 0, 0, 30]
+
+                MDNavigationDrawerItem:
+                    text: "Log out"
+                    align: "center"
+        
 <TTAppScreen>:
+    MDNavigationLayout:
+        ScreenManager:
+            Screen:
+                MDTopAppBar:
+                    pos_hint: {"top": 1}
+                    md_bg_color: "#e7e4c0"
+                    specific_text_color: "#000000"
+                    elevation: 5
+                    left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+                    right_action_items: [["magnify", lambda x: None]]
+
+                Image:
+                    source: "Images/Logo.png"
+                    size_hint: (0.75, 0.75)
+                    pos_hint: {'center_x':0.5, 'center_y': 0.7}
+                Image:
+                    source: "Images/memList.png"
+                    size_hint: (0.75, 0.75)
+                    pos_hint: {'center_x':0.5, 'center_y':0.4}
+                Image:
+                    source: "Images/email.png"
+                    size_hint: (0.75, 0.75)
+                    pos_hint: {'center_x':0.5, 'center_y':0.25}
+                MDFloatingActionButton:
+                    icon: "Images/homeIcon.png"
+                    icon_size: "50sp"
+                    theme_item_color: "Custom"
+                    pos_hint: {'center_x': 0.5, 'center_y':0.1}
+                    background_color: 0,0,0,0
+                    on_press: root.manager.current = 'main'
+
+
+        MDNavigationDrawer:
+            id: nav_drawer
+            radius: (0,16,0,16)
+            MDNavigationDrawerMenu:
+                MDNavigationDrawerHeader:
+                    source:"Images/userIcon.png"
+                    title: "Username"
+                    text: "User information"
+                    font_size: "15sp"
+                    spacing: "10dp"
+                    padding: "12dp", 0,0, "50dp"
+                MDNavigationDrawerLabel:
+                    text: "User"
+                MDNavigationDrawerItem:
+                    icon: "star"
+                    right_text: ""
+                    text_right_color: "#4a4939"
+                    text: "Purchase V.I.P"
+                MDNavigationDrawerItem:
+                    icon: "Images/shareIcon.png"
+                    right_text: ""
+                    text_right_color: "#4a4939"
+                    text: "Share"
+                    spacing: "10dp"
+                    padding: "10dp",0,0, "30dp"
+                MDNavigationDrawerItem:
+                    text: "Log out"
+                    align: "center"
+
+        MDNavigationDrawer:
+            id: right_nav_drawer
+            radius: (0,16,0,16)
+
+                
+<LoginScreen>:
+    canvas.before:
+        Color:
+            rgba: 0, 0.7, 0.9, 1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
     BoxLayout:
         orientation: 'vertical'
-        Label:
-            text: 'Thông tin ứng dụng'
-        Button:
-            text: 'Quay lại'
-            on_press: root.manager.current = 'main'
+        spacing: 150
+        padding: 20
 
-<TTBienBaoScreen>:
-    Label:
-        text:"THÔNG TIN BIỂN BÁO"
-        size_hint: 0.5, 0.1
-        pos_hint: {"x":0.25,"y":0.8}
-        font_size:self.height*0.3
+        Image:
+            source: "asd.png"
+            size_hint: (None, None)
+            size: (300, 300)
+            pos_hint: {'center_x':0.5, 'center_y':0.5 }
 
-    Button:
-        text: "TT"
-        size_hint: 0.15, 0.07
-        pos_hint: {"x": 0.02, "y": 0.90}
-        color: 0, 0, 1, 1
-        on_press: root.btn_click_TTCaNhan()
-    Button:
-        text: "Menu"
-        size_hint: 0.15, 0.07
-        pos_hint: {"x": 0.83, "y": 0.90}
-        color: 0, 0, 1, 1
-        on_press: root.btn_click_Menu()
-    Button:
-        text: "Quét"
-        size_hint: 0.15, 0.07
-        pos_hint: {"x": 0.52, "y": 0.05}
-        color: 1, 0, 0, 1
-        on_press: root.btn_click_Quet()
-    Button:
-        text: "Home"
-        size_hint: 0.15, 0.07
-        pos_hint: {"x": 0.35, "y": 0.05}
-        color: 1, 0, 0, 1
-        on_press: root.manager.current = 'main'
-    GridLayout:
-        spacing:"20dp","20dp"
-        pos_hint: {"x": 0.05, "y": 0.35}
-        size_hint: 0.9, 0.4
-        rows: 2
-        cols: 2
-        Button:
-            text: "Biển báo cấm"
-        Button:
-            text: "Biển báo nguy hiểm"
-        Button:
-            text: "Biển báo hiệu lệnh"
-        Button:
-            text: "Biển báo phụ"
-    Button:
-        text: "Biển báo chỉ dẫn"
-        size_hint: 0.9, 0.1
-        pos_hint: {"x": 0.05, "y": 0.22}
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 20
 
-<QuetScreen>:
-    Label:
-        text:"THÔNG TIN BIỂN BÁO"
-        size_hint: 0.5, 0.1
-        pos_hint: {"x":0.25,"y":0.8}
-        font_size:self.height*0.3
+            GridLayout:
+                cols: 2
+                spacing: 10
+                size_hint_y: None
+                height: 100
 
-    
-    Button:
-        text: "TT"
-        size_hint: 0.15, 0.07
-        pos_hint: {"x": 0.02, "y": 0.90}
-        color: 0, 0, 1, 1
-        on_press: root.btn_click_TTCaNhan()
-    Button:
-        text: "Menu"
-        size_hint: 0.15, 0.07
-        pos_hint: {"x": 0.83, "y": 0.90}
-        color: 0, 0, 1, 1
-        on_press: root.btn_click_Menu()
-    GridLayout:
-        cols:3
-        rows:1
-        pos_hint: {"x": 0.25, "y": 0.07}
-        size_hint: 0.5, 0.07
-        spacing:"10dp","10dp"
-        Button:
-            text: "Chụp"
-            color: 1, 0, 0, 1
-            on_press:root.capture_image()
-        Button:
-            text: "Đồng Ý"
-            color: 1, 0, 0, 1
-        Button:
-            text: "Home"
-            color: 1, 0, 0, 1
-            on_press: root.manager.current = 'main'
-   
+                Label:
+                    text: "Username:"
+                    font_size: 16
+                    color: (0, 0, 0, 1)
+                TextInput:
+                    id: entry_username
+                    font_size: 15
+                    text:"huy123"
+
+                Label:
+                    text: "Password:"
+                    font_size: 16
+                    color: (0, 0, 0, 1)
+                TextInput:
+                    id: entry_password
+                    password: True
+                    font_size: 15
+                    text:"123456"
+
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: 10
+                size_hint_y: None
+                height: 50
+
+                Button:
+                    text: "Đăng nhập"
+                    font_size: 16
+                    background_color: (0, 0.5, 1, 1)
+                    on_press: root.login()
+
+                Button:
+                    text: "Đăng ký"
+                    font_size: 16
+                    background_color: (0, 0.5, 1, 1)
+                    on_press: app.root.current = 'register'
+
+            Label:
+                id: login_status_label
+                text: ""
+                font_size: 16
+                height: 30
+
+<RegisterScreen>:
+    canvas.before:
+        Color:
+            rgba: 0, 0.7, 0.9, 1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 10
+        padding: 20
+
+        Image:
+            source: "asd.png"
+            size_hint: (None, None)
+            size: (150, 150)
+            pos_hint: {'center_x':0.5, 'center_y':0.7 }
+
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 20
+
+            GridLayout:
+                cols: 2
+                spacing: 10
+                size_hint_y: None
+                height: 100
+
+                Label:
+                    text: "Username:"
+                    font_size: 16
+                    color: (0, 0, 0, 1)
+                    pos_hint: {'center_x':0.2}
+                TextInput:
+                    id: entry_username_reg
+                    font_size: 15
+
+                Label:
+                    text: "Password:"
+                    font_size: 16
+                    color: (0, 0, 0, 1)
+                TextInput:
+                    id: entry_password_reg
+                    password: True
+                    font_size: 15
+
+                Label:
+                    text: "Email:"
+                    font_size: 16
+                    color: (0, 0, 0, 1)
+                TextInput:
+                    id: entry_email_reg
+                    font_size: 15
+
+                Label:
+                    text: "Ho va Ten:"
+                    font_size: 16
+                    color: (0, 0, 0, 1)
+                TextInput:
+                    id: entry_name_reg
+                    font_size: 15
+
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: 10
+                size_hint_y: None
+                height: 50
+
+                Button:
+                    text: "Đăng ký"
+                    font_size: 16
+                    background_color: (0, 0.5, 1, 1)
+                    on_press: root.register()
+
+                Button:
+                    text: "Quay lại"
+                    font_size: 16
+                    background_color: (0, 0.5, 1, 1)
+                    on_press: app.root.current = 'Login'
+
+            Label:
+                id: register_status_label
+                text: ""
+                font_size: 16
+                height: 30
+
+<UpLoadHinhScreen>:
+    MDNavigationLayout:
+        ScreenManager:
+            Screen:
+                MDTopAppBar:
+                    pos_hint: {"top": 1}
+                    md_bg_color: "#e7e4c0"
+                    specific_text_color: "#000000"
+                    elevation: 5
+                    left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+                    right_action_items: [["magnify", lambda x: None]]
+
+                Image:
+                    id: selected_image
+                    size_hint: 0.65, 0.65
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+                    source: "Images/__ruan_mei_honkai_and_1_more__fe90c2ad3c46efd002abe86229bcdc37.png"
+
+                BoxLayout:
+                    size_hint: 0.45, 0.45
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.45}
+                    canvas:
+                        Color:
+                            rgb: 1, 0, 0
+                    MDIconButton:
+                        icon: "star"
+                        text_color: 1, 1, 1, 1
+                        md_bg_color: 1, 1, 1, 0
+                        size_hint: 0.1, 0.1
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.57}
+                        on_press: root.change_star_color(self)
+
+                    Image:
+                        size_hint: 0.1, 0.1
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.56}
+                        source: "Images/star_off.png"
+
+                    Image:
+                        size_hint: 0.1, 0.1
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.55}
+                        source: "Images/star_off.png"
+
+                    Image:
+                        size_hint: 0.1, 0.1
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.56}
+                        source: "Images/star_off.png"
+
+                    Image:
+                        size_hint: 0.1, 0.1
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.57}
+                        source: "Images/star_off.png"
+
+                MDRaisedButton:
+                    style: "tonal"
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+                    size_hint: 0.7, 0.075
+                    text: "Đánh giá"
+                    text_color: "black"
+                    font_size: "20sp"
+                    md_bg_color: "#9FD7F9"
+                    theme_shadow_color: "Custom"
+                    shadow_color: "black"
+
+                MDLabel:
+                    id: result_label  # ID của MDLabel
+
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.25}
+                    size_hint: 0.7, 0.2
+                    text: "CaiDitConMeVoTaoXinhVoCoLo"
+                    halign: "center"
+                    md_bg_color: "#778899"
+
+                MDBottomAppBar:
+                    id: bottom_appbar
+                    md_bg_color: "#e7e4c0"
+
+                    MDFabBottomAppBarButton:
+                        id: fab_button
+                        icon: "home"
+                        theme_bg_color: "Custom"
+                        md_bg_color: "#373A22"
+                        pos_hint: {'center_x': 0.5}
+
+                    MDFabBottomAppBarButton:
+                        id: fab_button
+                        icon: "camera"
+                        theme_bg_color: "Custom"
+                        md_bg_color: "#373A22"
+                        pos_hint: {'center_x': 0.75}
+
+                    MDFabBottomAppBarButton:
+                        id: fab_button
+                        icon: "plus"
+                        theme_bg_color: "Custom"
+                        md_bg_color: "#373A22"
+                        pos_hint: {'center_x': 0.25}
+                        on_release: root.open_file_chooser()
+
+                MDNavigationDrawer:
+                    id: nav_drawer
+                    radius: (0, 16, 0, 16)
+                    MDNavigationDrawerMenu:
+                        MDNavigationDrawerHeader:
+                            source: "Images/__ruan_mei_honkai_and_1_more__fe90c2ad3c46efd002abe86229bcdc37.png"
+                            title: "Mei dep gai"
+                            text: "Meixinhdep@yahoo.com"
+                            text_size: 0.07
+                            spacing: "10dp"
+                            padding: "12dp", 0, 0, "50dp"
+
+                        MDNavigationDrawerLabel:
+                            text: "User"
+
+                        MDNavigationDrawerItem:
+                            icon: "star"
+                            right_text: ""
+                            text_right_color: "#4a4939"
+                            text: "Purchase V.I.P"
+
+                        MDNavigationDrawerItem:
+                            icon: "Images/shareIcon.png"
+                            right_text: ""
+                            text_right_color: "#4a4939"
+                            text: "Share"
+                            spacing: "10dp"
+                            padding: "10dp", 0, 0, "30dp"
+
+                        MDNavigationDrawerItem:
+                            text: "               Log out"
+                            align: "center"
+                            background_color: 1, 0, 0, 0
+
+                MDNavigationDrawer:
+                    id: right_nav_drawer
+                    radius: (0, 16, 0, 16)
