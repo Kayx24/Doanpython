@@ -1,0 +1,913 @@
+Main_login
+<MainWidget>:
+    MDNavigationLayout:
+        ScreenManager:
+            MDScreen:
+                md_bg_color:"#efeff7"
+                MDTopAppBar:
+                    title:"Trang chủ"
+                    anchor_title: 'left'
+                    pos_hint: {"top": 1}
+                    md_bg_color: "#3EAEF4"
+                    specific_text_color: "#000000"
+                    elevation: 5
+                    left_action_items: [["menu", lambda x: root.open_nav_drawer()]]
+                    #right_action_items: [["close", lambda x: root.close_nav_drawer()]]
+                #Label:
+                    #text: "Phần Mềm Nhận Diện Biển Báo Giao Thông"
+                    #size_hint: 0.6, 0.5
+                    #pos_hint: {'x': 0.20, 'y': 0.57}
+                    #color: 1, 0, 0, 1  # Màu chữ: Đỏ (Red)
+                    #font_size: "19sp"  # Kích thước phông chữ: 20sp
+                MDIconButton:
+                    id: magnifybutton
+                    icon: 'magnify'
+                    icon_color: 255,215,0
+                    icon_size: "40dp"
+                    size_hint: 0.15, 0.1
+                    pos_hint: {'center_x':0.9, 'center_y': 0.85}
+                MDBottomAppBar:
+                    id: bottom_appbar
+                    md_bg_color: "#F0E68C"
+                    MDFabBottomAppBarButton:
+                        id: fab_button
+                        icon: "Images/scanIcon.jpg"
+                        theme_bg_color: "Custom"
+                        md_bg_color: "F0FFFF"
+                        pos_hint: {'center_x': 0.5}  
+                        on_press: root.btn_click_Quet()   
+                GridLayout:
+                    background_color:1, 0, 0, 1
+                    pos_hint:{'x':0.075,'y':0.15}
+                    size_hint:0.85,0.6
+                    spacing:"10dp","10dp"
+            
+                    rows:4
+                    cols:2
+                    MDFloatingActionButton:
+                        icon: "Images/uploadIcon.jpg"
+                        icon_size:"110dp"
+                        elevation_normal: 12
+                        size_hint: 1,1
+                        style: "tonal"
+                        #user_font_size: "120sp"
+                        md_bg_color: "#FFFAFA"
+                        on_press: root.btn_click_UploadHinh() 
+                    MDFloatingActionButton:
+                        icon: "Images\SignInfoIcon.jpg"
+                        icon_size:"110dp"
+                        elevation_normal: 12
+                        size_hint: 1,2
+                        style: "tonal"
+                        #user_font_size: "120sp"
+                        md_bg_color: "#FFFAFA"
+                        on_press: root.btn_click_TTBienBao()
+                    MDLabel:
+                        size_hint: 1, 1
+                        pos_hint: {'center_x': 0.5, 'center_y': 0}
+                        text:"    Upload hình ảnh"    
+                    MDLabel:
+                        size_hint: 1, 1
+                        pos_hint: {'center_x': 0.5, 'center_y': 0}
+                        text:"    Thông tin biển báo" 
+
+                    MDFloatingActionButton:
+                        icon: "Images/historyIcon.jpg"
+                        icon_size:"130dp"
+                        elevation_normal: 12
+                        size_hint: 1,2
+                        style: "tonal"
+                        md_bg_color: "#FFFAFA"
+                        on_press: root.btn_click_Tim()
+                    MDFloatingActionButton:
+                        icon: "Images/appInfoIcon.jpg"
+                        icon_size:"110dp"
+                        elevation_normal: 12
+                        size_hint: 1,2
+                        style: "tonal"
+                        md_bg_color: "#FFFAFA"
+                        on_press: root.btn_click_TTApp()
+                    MDLabel:
+                        size_hint: 1, 1
+                        pos_hint: {'center_x': 0.5, 'center_y': 0}
+                        text:"    Lịch Sử Tìm Kiếm"   
+                    MDLabel:
+                        size_hint: 1, 1
+                        pos_hint: {'center_x': 0.5, 'center_y': 0}
+                        text:"Thông Tin Ứng Dụng"
+
+        MDNavigationDrawer:
+            id: nav_drawer
+            radius: [0, 16, 0, 16]
+            md_bg_color:"#efeff7"
+            MDNavigationDrawerMenu:
+                auto_dismiss: False
+                MDNavigationDrawerHeader:
+                    id:hoten
+                    source: "Images\__ruan_mei_honkai_and_1_more__fe90c2ad3c46efd002abe86229bcdc37.png"
+                    title: "Username"
+                    font_size: "15sp"
+                    spacing: "10dp"
+                    padding: [12, 0, 0, 50]
+
+                MDNavigationDrawerLabel:
+                    id:label_solanquettrongngay
+                    text: "User"
+                MDNavigationDrawerLabel:
+                    id:label_tongsolanquet
+                    text: "User"
+
+                MDNavigationDrawerItem:
+                    id:vip
+                    icon: "star"
+                    text_right_color: [0.29, 0.28, 0.22, 1]
+                    text: "Purchase V.I.P"
+
+                MDNavigationDrawerItem:
+                    icon: "Images/shareIcon.png"
+                    right_text: ""
+                    text_right_color: [0.29, 0.28, 0.22, 1]
+                    text: "Share"
+                    spacing: "10dp"
+                    padding: [10, 0, 0, 30]
+
+                MDNavigationDrawerItem:
+                    text: "               Log out"
+                    on_press:root.close_nav_drawer()
+                    on_press:root.manager.current='Main_login'
+   
+<TTBienBaoScreen>:
+    MDNavigationLayout:
+        ScreenManager:
+            Screen:
+                MDTopAppBar:
+                    pos_hint: {"top": 1}
+                    md_bg_color: "#e7e4c0"
+                    specific_text_color: "#000000"
+                    elevation: 5
+                    left_action_items: [["menu", lambda x: root.open_nav_drawer()]]
+                    right_action_items: [["magnify", lambda x: None]]
+                Label:
+                    text:"THÔNG TIN BIỂN BÁO"
+                    size_hint: 0.6, 0.5
+                    pos_hint: {'x': 0.20, 'y': 0.57}
+                    color: 1, 0, 0, 1  # Màu chữ: Đỏ (Red)
+                    font_size: "19sp"  # Kích thước phông chữ: 20sp
+                MDBottomAppBar:
+                    id: bottom_appbar
+                    md_bg_color: "#e7e4c0"
+                    MDFabBottomAppBarButton:
+                        id: fab_button
+                        icon: "Images/cameraIcon.jpg"
+                        icon_size: "35dp"
+                        theme_bg_color: "Custom"
+                        md_bg_color: "F0FFFF"
+                        pos_hint: {'center_x': 0.25}
+                        on_press:root.manager.current='QuetScreen'
+                    MDFabBottomAppBarButton:
+                        id: fab_button
+                        icon: "Images/home.jpg"
+                        icon_size: "45dp"
+                        theme_bg_color: "Custom"
+                        md_bg_color: "F0FFFF"
+                        pos_hint: {'center_x': 0.5}
+                        on_press: root.manager.current = 'main'   
+
+                GridLayout:
+                    spacing:"20dp","20dp"
+                    pos_hint: {"x": 0.05, "y": 0.35}
+                    size_hint: 0.9, 0.4
+                    rows: 2
+                    cols: 2
+                    Button:
+                        text: "Biển báo cấm"
+                        on_press:root.Cam()
+                    Button:
+                        text: "Biển báo nguy hiểm"
+                    Button:
+                        text: "Biển báo hiệu lệnh"
+                    Button:
+                        text: "Biển báo phụ"
+                Button:
+                    text: "Biển báo chỉ dẫn"
+                    size_hint: 0.5, 0.18
+                    pos_hint: {"x": 0.25, "y": 0.15}
+                    
+        MDNavigationDrawer:
+            id: nav_drawer
+            radius: [0, 16, 0, 16]
+            MDNavigationDrawerMenu:
+                auto_dismiss: True
+                MDNavigationDrawerHeader:
+                    id:hoten
+                    source: "Images\__ruan_mei_honkai_and_1_more__fe90c2ad3c46efd002abe86229bcdc37.png"
+                    title: "Username"
+                    font_size: "15sp"
+                    spacing: "10dp"
+                    padding: [12, 0, 0, 50]
+
+                MDNavigationDrawerLabel:
+                    id:label_solanquettrongngay
+                    text: "User"
+                MDNavigationDrawerLabel:
+                    id:label_tongsolanquet
+                    text: "User"
+
+                MDNavigationDrawerItem:
+                    id:vip
+                    icon: "star"
+                    text_right_color: [0.29, 0.28, 0.22, 1]
+                    text: "Purchase V.I.P"
+
+                MDNavigationDrawerItem:
+                    icon: "Images/shareIcon.png"
+                    right_text: ""
+                    text_right_color: [0.29, 0.28, 0.22, 1]
+                    text: "Share"
+                    spacing: "10dp"
+                    padding: [10, 0, 0, 30]
+
+                MDNavigationDrawerItem:
+                    text: "               Log out"
+                    on_press:root.manager.current='Main_login'
+                
+    
+<QuetScreen>:   #Done
+    MDNavigationLayout:
+        ScreenManager:
+            Screen:
+                MDTopAppBar:
+                    title: "Scan Screen"
+                    halign: "center" 
+                    pos_hint: {"top": 1}
+                    md_bg_color: "#e7e4c0"
+                    specific_text_color: "#000000"
+                    elevation: 5
+                    left_action_items: [["menu", lambda x: root.open_nav_drawer()]]
+                    #right_action_items: [["magnify", lambda x: None]]
+                #Label:
+                    #text:"Quét"
+                    #size_hint: 0.5, 0.1
+                    #pos_hint: {"x":0.25,"y":0.8}
+                    #font_size:self.height*0.3
+                MDBottomAppBar:
+                    id: bottom_appbar
+                    md_bg_color: "#e7e4c0"
+                    MDFabBottomAppBarButton:
+                        id: fab_button
+                        icon: "Images/cameraIcon.jpg"
+                        icon_size: "35dp"
+                        theme_bg_color: "Custom"
+                        md_bg_color: "F0FFFF"
+                        pos_hint: {'center_x': 0.4}  
+                        on_press:root.capture_image()
+                        
+
+                    MDFabBottomAppBarButton:
+                        id: fab_button
+                        icon: "Images/home.jpg"
+                        icon_size: "45dp"
+                        theme_bg_color: "Custom"
+                        md_bg_color: "F0FFFF"
+                        pos_hint: {'center_x': 0.6}
+                        on_press: root.manager.current = 'main'   
+                    
+                    
+                
+                #Button:
+                    #pos_hint: {"x": 0.25, "y": 0.07}
+                    #size_hint: 0.15, 0.07
+                    #text: "Chụp"
+                    #color: 1, 0, 0, 1
+                    
+
+        MDNavigationDrawer:
+            id: nav_drawer
+            radius: [0, 16, 0, 16]
+            MDNavigationDrawerMenu:
+                auto_dismiss: True
+                MDNavigationDrawerHeader:
+                    id:hoten
+                    source: "Images\__ruan_mei_honkai_and_1_more__fe90c2ad3c46efd002abe86229bcdc37.png"
+                    title: "Username"
+                    font_size: "15sp"
+                    spacing: "10dp"
+                    padding: [12, 0, 0, 50]
+
+                MDNavigationDrawerLabel:
+                    id:label_solanquettrongngay
+                    text: "User"
+                MDNavigationDrawerLabel:
+                    id:label_tongsolanquet
+                    text: "User"
+
+                MDNavigationDrawerItem:
+                    id:vip
+                    icon: "star"
+                    text_right_color: [0.29, 0.28, 0.22, 1]
+                    text: "Purchase V.I.P"
+
+                MDNavigationDrawerItem:
+                    icon: "Images/shareIcon.png"
+                    right_text: ""
+                    text_right_color: [0.29, 0.28, 0.22, 1]
+                    text: "Share"
+                    spacing: "10dp"
+                    padding: [10, 0, 0, 30]
+
+                MDNavigationDrawerItem:
+                    text: "               Log out"
+                    on_press:root.manager.current='Main_login'
+                
+           
+<TTAppScreen>:  #Done
+    MDNavigationLayout:
+        ScreenManager:
+            Screen:
+                MDTopAppBar:
+                    pos_hint: {"top": 1}
+                    md_bg_color: "#e7e4c0"
+                    specific_text_color: "#000000"
+                    elevation: 5
+                    left_action_items: [["menu", lambda x: root.open_nav_drawer()]]
+                    #right_action_items: [["magnify", lambda x: None]]
+
+                Image:
+                    source: "Images/Logo.png"
+                    size_hint: (0.75, 0.75)
+                    pos_hint: {'center_x':0.5, 'center_y': 0.7}
+                Image:
+                    source: "Images/memList.png"
+                    size_hint: (0.75, 0.75)
+                    pos_hint: {'center_x':0.5, 'center_y':0.4}
+                Image:
+                    source: "Images/email.png"
+                    size_hint: (0.75, 0.75)
+                    pos_hint: {'center_x':0.5, 'center_y':0.25}
+                MDBottomAppBar:
+                    id: bottom_appbar
+                    md_bg_color: "#e7e4c0"
+                    MDFabBottomAppBarButton:
+                        id: fab_button
+                        icon: "Images/scanIcon.jpg"
+                        icon_size: "35dp"
+                        theme_bg_color: "Custom"
+                        md_bg_color: "F0FFFF"
+                        pos_hint: {'center_x': 0.4}  
+                        on_press:root.manager.current='Quet'
+                        
+
+                    MDFabBottomAppBarButton:
+                        id: fab_button
+                        icon: "Images/home.jpg"
+                        icon_size: "45dp"
+                        theme_bg_color: "Custom"
+                        md_bg_color: "F0FFFF"
+                        pos_hint: {'center_x': 0.6}
+                        on_press: root.manager.current = 'main'    
+                
+
+
+        MDNavigationDrawer:
+            id: nav_drawer
+            radius: [0, 16, 0, 16]
+            MDNavigationDrawerMenu:
+                auto_dismiss: True
+                MDNavigationDrawerHeader:
+                    id:hoten
+                    source: "Images\__ruan_mei_honkai_and_1_more__fe90c2ad3c46efd002abe86229bcdc37.png"
+                    title: "Username"
+                    font_size: "15sp"
+                    spacing: "10dp"
+                    padding: [12, 0, 0, 50]
+
+                MDNavigationDrawerLabel:
+                    id:label_solanquettrongngay
+                    text: "User"
+                MDNavigationDrawerLabel:
+                    id:label_tongsolanquet
+                    text: "User"
+
+                MDNavigationDrawerItem:
+                    id:vip
+                    icon: "star"
+                    text_right_color: [0.29, 0.28, 0.22, 1]
+                    text: "Purchase V.I.P"
+
+                MDNavigationDrawerItem:
+                    icon: "Images/shareIcon.png"
+                    right_text: ""
+                    text_right_color: [0.29, 0.28, 0.22, 1]
+                    text: "Share"
+                    spacing: "10dp"
+                    padding: [10, 0, 0, 30]
+
+                MDNavigationDrawerItem:
+                    text: "               Log out"
+                    on_press:root.manager.current='Login'
+
+<UpLoadHinhScreen>:
+    MDNavigationLayout:
+        ScreenManager:
+            Screen:
+                MDTopAppBar:
+                    pos_hint: {"top": 1}
+                    md_bg_color: "#e7e4c0"
+                    specific_text_color: "#000000"
+                    elevation: 5
+                    left_action_items: [["menu", lambda x: root.open_nav_drawer()]]
+                    right_action_items: [["magnify", lambda x: None]]
+
+                Image:
+                    id: selected_image
+                    size_hint: 0.65, 0.65
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+                    source: "Images/Holo _ Gyate Gyate _ Ohayou.jpg"
+
+                BoxLayout:
+                    size_hint: 0.45, 0.45
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.45}
+                    canvas:
+                        Color:
+                            rgb: 1, 0, 0
+                    MDIconButton:
+                        icon: "star"
+                        text_color: 1, 1, 1, 1
+                        md_bg_color: 1, 1, 1, 0
+                        size_hint: 0.1, 0.1
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.57}
+                        on_press: root.change_star_color(self)
+
+                    Image:
+                        size_hint: 0.1, 0.1
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.56}
+                        source: "Images/star_off.png"
+
+                    Image:
+                        size_hint: 0.1, 0.1
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.55}
+                        source: "Images/star_off.png"
+
+                    Image:
+                        size_hint: 0.1, 0.1
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.56}
+                        source: "Images/star_off.png"
+
+                    Image:
+                        size_hint: 0.1, 0.1
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.57}
+                        source: "Images/star_off.png"
+
+                MDRaisedButton:
+                    style: "tonal"
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+                    size_hint: 0.7, 0.075
+                    text: "Đánh giá"
+                    text_color: "black"
+                    font_size: "20sp"
+                    md_bg_color: "#9FD7F9"
+                    theme_shadow_color: "Custom"
+                    shadow_color: "black"
+
+                MDLabel:
+                    id: result_label  # ID của MDLabel
+
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.25}
+                    size_hint: 0.7, 0.2
+                    text: "Cho xin tấm ảnh đii :3"
+                    halign: "center"
+                    md_bg_color: "#778899"
+
+                MDBottomAppBar:
+                    id: bottom_appbar
+                    md_bg_color: "#e7e4c0"
+
+                    MDFabBottomAppBarButton:
+                        id: fab_button
+                        icon: "home"
+                        theme_bg_color: "Custom"
+                        md_bg_color: "#373A22"
+                        pos_hint: {'center_x': 0.5}
+                        on_press: root.manager.current = 'main'
+
+                    MDFabBottomAppBarButton:
+                        id: fab_button
+                        icon: "camera"
+                        theme_bg_color: "Custom"
+                        md_bg_color: "#373A22"
+                        pos_hint: {'center_x': 0.75}
+                        on_press: root.manager.current = 'Quet'
+
+                    MDFabBottomAppBarButton:
+                        id: fab_button
+                        icon: "plus"
+                        theme_bg_color: "Custom"
+                        md_bg_color: "#373A22"
+                        pos_hint: {'center_x': 0.25}
+                        on_release: root.open_file_chooser()
+
+                MDNavigationDrawer:
+                    id: nav_drawer
+                    radius: [0, 16, 0, 16]
+                    MDNavigationDrawerMenu:
+                        auto_dismiss: True
+                        MDNavigationDrawerHeader:
+                            id:hoten
+                            source: "Images\__ruan_mei_honkai_and_1_more__fe90c2ad3c46efd002abe86229bcdc37.png"
+                            title: "Username"
+                            font_size: "15sp"
+                            spacing: "10dp"
+                            padding: [12, 0, 0, 50]
+
+                        MDNavigationDrawerLabel:
+                            id:label_solanquettrongngay
+                            text: "User"
+                        MDNavigationDrawerLabel:
+                            id:label_tongsolanquet
+                            text: "User"
+
+                        MDNavigationDrawerItem:
+                            id:vip
+                            icon: "star"
+                            text_right_color: [0.29, 0.28, 0.22, 1]
+                            text: "Purchase V.I.P"
+
+                        MDNavigationDrawerItem:
+                            icon: "Images/shareIcon.png"
+                            right_text: ""
+                            text_right_color: [0.29, 0.28, 0.22, 1]
+                            text: "Share"
+                            spacing: "10dp"
+                            padding: [10, 0, 0, 30]
+
+                        MDNavigationDrawerItem:
+                            text: "               Log out"
+                            on_press:root.manager.current='Main_login'
+                
+
+                MDNavigationDrawer:
+                    id: right_nav_drawer
+                    radius: (0, 16, 0, 16)
+
+
+<LoginScreen>:
+    MDFloatLayout:
+        md_bg_color:1,1,1,1
+        MDIconButton:
+            icon:"Images/left-arrow.png"
+            pos_hint: {"center_y":.95}
+            user_font_size : "30sp"
+            theme_text_color: "Custom"
+            text_color: (26 , 24 , 58 ,255)
+            on_release:
+                root.manager.transition.direction= "right"
+                root.manager.current= "Main_login"
+
+        MDLabel:
+            text:"W e l c o m e!"
+            #font_name:"BPoppins"
+            font_size: "26sp"
+            pos_hint:{"center_x":.6 , "center_y": .85}
+            color:rgba(0 , 0 , 59, 255)
+
+
+        MDLabel:
+            text:""
+            #font_name:"MPoppins"
+            font_size:"18sp"
+            pos_hint:{"center_x":.6 , "center_y":.79}
+            color:rgba(135 , 135 , 193, 255)
+
+        MDFloatLayout:
+            size_hint: .7 , .07
+            pos_hint:{"center_x": .5 , "center_y": .63}
+            TextInput:
+                id: entry_username
+                hint_text: "User"
+                size_hint_y: .75
+                pos_hint:{"center_x":.43 , "center_y":.5}
+                background_color: 1 , 1, 1 ,0
+                foreground_color: rgba( 0, 0, 59, 255)
+                cursor_color: rgba( 0, 0, 59, 255)
+                font_size: "20sp"
+                cursor_width: "2sp"
+                multiline: False
+                text:"huy123"
+            MDFloatLayout:
+                pos_hint: {"center_x":.45 , "center_y":0}
+                size_hint_y: .03
+                md_bg_color: rgba(178 , 178 , 178 ,255)
+
+
+        MDFloatLayout:
+            size_hint: .7 , .07
+            pos_hint:{"center_x": .5 , "center_y": .5}
+
+            TextInput:
+                id: entry_password
+                hint_text: "Password"
+                size_hint_y: .75
+                pos_hint:{"center_x":.43 , "center_y":.5}
+                background_color: 1 , 1, 1 ,0
+                foreground_color: rgba( 0, 0, 59, 255)
+                cursor_color: rgba( 0, 0, 59, 255)
+                font_size: "20sp"
+                cursor_width: "2sp"
+                multiline: False
+                password: True
+                text:"123456"
+            MDFloatLayout:
+                pos_hint: {"center_x":.45 , "center_y":0}
+                size_hint_y: .03
+                md_bg_color: rgba(178 , 178 , 178 ,255)
+
+        Button:
+            text:"LOGIN"
+            size_hint: .66 , .065
+            pos_hint:{"center_x":.5 , "center_y":.34}
+            background_color: 0 , 0 ,0 ,0
+            canvas.before:
+                Color:
+                    rgb: rgba(52, 0 , 231 , 255)
+                RoundedRectangle:
+                    size: self.size
+                    pos : self.pos
+                    radius:[5]
+            on_press:root.login()
+
+
+        MDTextButton:
+            text:"Forgot Password?"
+            pos_hint: {"center_x":.5 , "center_y":.28}
+            color: rgba( 68, 78 , 132 , 255)
+            font_size: "12sp"
+            #font_name:"BPoppins"
+
+        MDLabel:
+            text:"OR"
+            color: rgba(52, 0 , 231 , 255)
+            pos_hint: {"center_y": .22}
+            font_size:"13sp"
+            #font_name:"BPoppins"
+            halign: "center"
+
+        MDFloatLayout:
+            md_bg_color: rgba(178 , 178 , 178 ,255)
+            size_hint: .3 , .002
+            pos_hint: {"center_x": .3 , "center_y" : .218}
+
+        MDFloatLayout:
+            md_bg_color: rgba(178 , 178 , 178 ,255)
+            size_hint: .3 , .002
+            pos_hint: {"center_x": .7 , "center_y" : .218}
+
+        MDLabel:
+            text: "Social Media Login"
+            #font_name: "BPoppins"
+            font_size :"13sp"
+            halign: "center"
+            pos_hint: {"center_y": .16}
+            color: rgba( 135 , 133 , 193 , 255)
+    
+            
+        MDGridLayout:
+            cols: 3
+            size_hint: .48 , .07
+            pos_hint: {"center_x": .5 , "center_y": .1}
+            MDIconButton:
+                on_release: app.login1()
+                icon:"Images/google.png"
+                user_font_size : "27sp"
+            Image:
+                source:"Images/facebook.png"
+            Image:
+                source:"Images/apple.png"
+
+        MDLabel:
+            text:"Don't have an count?"
+            #font_name:"BPoppins"
+            font_size:"14sp"
+            pos_hint: {"center_x" : .80, "center_y": .04}
+            color: rgba(135 , 133 , 193 , 255)
+
+        MDTextButton:
+            text:"Sign Up"
+            #font_name:"BPoppins"
+            font_size:"14sp"
+            pos_hint: {"center_x" : .70 , "center_y": .04}
+            color: rgba(52 , 0 , 231 , 255)
+            on_release:
+                root.manager.transition.direction= "left"
+                root.manager.current= "register"
+
+<RegisterScreen>:
+    name:"register"
+    MDFloatLayout:
+        md_bg_color:1,1,1,1
+        MDIconButton:
+            icon:"Images/left-arrow.png"
+            pos_hint: {"center_y":.95}
+            user_font_size : "30sp"
+            theme_text_color: "Custom"
+            text_color: (26 , 24 , 58 ,255)
+            on_release:
+                root.manager.transition.direction= "right"
+                root.manager.current= "Main_login"
+
+        MDLabel:
+            text:"H I  !"
+            #font_name:"BPoppins"
+            font_size: "26sp"
+            pos_hint:{"x":.8 , "center_y": .933}
+            color:rgba(0 , 0 , 59, 255)
+        Image:
+            source:"Images/dangki.jpg"
+            size_hint: .7 , .8
+            pos_hint:{"center_x":.5 , "center_y":.75}
+
+        MDFloatLayout:
+            size_hint: .7 , .07
+            pos_hint:{"center_x": .5 , "center_y": .52}
+            TextInput:
+                hint_text: "Tên Tài Khoản"
+                id:entry_username_reg
+
+                size_hint_y: .75
+                pos_hint:{"center_x":.43 , "center_y":.5}
+                background_color: 1 , 1, 1 ,0
+                foreground_color: rgba( 0, 0, 59, 255)
+                cursor_color: rgba( 0, 0, 59, 255)
+                font_size: "14sp"
+                cursor_width: "2sp"
+                multiline: False
+            MDFloatLayout:
+                pos_hint: {"center_x":.45 , "center_y":0}
+                size_hint_y: .03
+                md_bg_color: rgba(178 , 178 , 178 ,255)
+
+
+        MDFloatLayout:
+            size_hint: .7 , .07
+            pos_hint:{"center_x": .5 , "center_y": .44}
+
+            TextInput:
+                hint_text: "Mật Khẩu"
+                id: entry_password_reg
+                size_hint_y: .75
+                pos_hint:{"center_x":.43 , "center_y":.5}
+                background_color: 1 , 1, 1 ,0
+                foreground_color: rgba( 0, 0, 59, 255)
+                cursor_color: rgba( 0, 0, 59, 255)
+                font_size: "14sp"
+                cursor_width: "2sp"
+                multiline: False
+                password: True
+            MDFloatLayout:
+                pos_hint: {"center_x":.45 , "center_y":0}
+                size_hint_y: .03
+                md_bg_color: rgba(178 , 178 , 178 ,255)
+        MDFloatLayout:
+            size_hint: .7 , .07
+            pos_hint:{"center_x": .5 , "center_y": .36}
+
+            TextInput:
+                hint_text: "Tên"
+                id: entry_email_reg
+                size_hint_y: .75
+                pos_hint:{"center_x":.43 , "center_y":.5}
+                background_color: 1 , 1, 1 ,0
+                foreground_color: rgba( 0, 0, 59, 255)
+                cursor_color: rgba( 0, 0, 59, 255)
+                font_size: "14sp"
+                cursor_width: "2sp"
+                multiline: False
+
+            MDFloatLayout:
+                pos_hint: {"center_x":.45 , "center_y":0}
+                size_hint_y: .03
+                md_bg_color: rgba(178 , 178 , 178 ,255)
+      
+        Button:
+            text:"Đăng Kí"
+            size_hint: .5 , .065
+            pos_hint:{"center_x":.5 , "center_y":.27}
+            background_color: 0 , 0 ,0 ,0
+            on_press:root.register()
+            canvas.before:
+                Color:
+                    rgb: rgba(52, 0 , 231 , 255)
+                RoundedRectangle:
+                    size: self.size
+                    pos : self.pos
+                    radius:[5]
+
+
+
+        MDLabel:
+            text:"OR"
+            color: rgba(52, 0 , 231 , 255)
+            pos_hint: {"center_y": .20}
+            font_size:"13sp"
+            #font_name:"BPoppins"
+            halign: "center"
+
+        MDFloatLayout:
+            md_bg_color: rgba(178 , 178 , 178 ,255)
+            size_hint: .3 , .002
+            pos_hint: {"center_x": .3 , "center_y" : .200}
+
+        MDFloatLayout:
+            md_bg_color: rgba(178 , 178 , 178 ,255)
+            size_hint: .3 , .002
+            pos_hint: {"center_x": .73 , "center_y" : .200}
+
+        MDLabel:
+            text: "Social Media Login"
+            #font_name: "BPoppins"
+            font_size :"13sp"
+            halign: "center"
+            pos_hint: {"center_y": .16}
+            color: rgba( 135 , 133 , 193 , 255)
+        MDGridLayout:
+            cols: 3
+            size_hint: .48 , .07
+            pos_hint: {"center_x": .5 , "center_y": .1}
+            Image:
+                source:"Images/google.png"
+            Image:
+                source:"Images/facebook.png"
+            Image:
+                source:"Images/apple.png"
+
+        MDLabel:
+            text:"Don't have an count?"
+            #font_name:"BPoppins"
+            font_size:"14sp"
+            pos_hint: {"center_x" : .80, "center_y": .04}
+            color: rgba(135 , 133 , 193 , 255)
+
+        MDTextButton:
+            text:"Sign in"
+            #font_name:"BPoppins"
+            font_size:"14sp"
+            pos_hint: {"center_x" : .69 , "center_y": .04}
+            color: rgba(52 , 0 , 231 , 255)
+            on_release:
+                root.manager.transition.direction= "left"
+                root.manager.current= "Login"
+
+<Main_login>:
+    MDFloatLayout:
+        md_bg_color:1,1,1,1
+        Image:
+            source:"Images/Welcome.jpg"
+            size_hint: .7 , .8
+            pos_hint:{"center_x":.5 , "center_y":.65}
+        MDLabel:
+            text:"Xin chàoo!!!!"
+            #font_name:"BPoppins"
+            font_size:32
+            pos_hint:{"center_x":.5 , "center_y":.38}
+            halign:"center"
+            color:rgba(34 , 34 , 34, 255)
+        MDLabel:
+            #font_name:"MPoppins"
+            font_size:"13sp"
+            halign:"center"
+            pos_hint:{"center_x":.5 , "center_y":.45}
+            color:rgba(127 , 127 , 127, 255)
+
+        Button:
+            text:"Đăng nhập"
+            size_hint: .66 , .065
+            pos_hint:{"center_x":.5 , "center_y":.27}
+            background_color: 0 , 0 ,0 ,0
+            on_release:
+                root.manager.transition.direction="left"
+                root.manager.current= "Login"
+
+            canvas.before:
+                Color:
+                    rgb: rgba(52, 0 , 231 , 255)
+                RoundedRectangle:
+                    size: self.size
+                    pos : self.pos
+                    radius:[5]
+
+        Button:
+            text:"Đăng Ký"
+            size_hint: .66 , .065
+            pos_hint:{"center_x":.5 , "center_y":.14}
+            background_color: 0 , 0 ,0 ,0
+            color: rgba(52, 0 , 231 , 255)
+            on_release:
+                root.manager.transition.direction="left"
+                root.manager.current= "register"
+            canvas.before:
+                Color:
+                    rgb: rgba(52, 0 , 231 , 255)
+                Line:
+                    width: 1.2
+                    rounded_rectangle: self.x , self.y , self.width, self.height , 5 , 5, 5, 5, 100
+
+
