@@ -92,7 +92,6 @@ class TTbienbao(App):
         
         return scroll_view
 
- 
 
     def on_button_press(self, instance):
         category = None
